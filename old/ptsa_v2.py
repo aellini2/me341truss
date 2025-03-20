@@ -225,7 +225,7 @@ def parallel_tempering_sa(pt_config):
 
         # Cooling
         for c in range(n_chains):
-            chain_T[c] = max(chain_T[c]*0.98, min_temp)
+            chain_T[c] = max(chain_T[c]*0.99, min_temp)
 
         # Stopping if no improvement
         if (iteration - last_improve_iter) > no_improve_limit:
@@ -360,10 +360,10 @@ if __name__=="__main__":
     pt_config = {
         "x0_list": [
             [0.0, 7.5],  # chain0 initial guess
-            [-7.5, 7.5], # chain1 initial guess
-            [7.5, 7.5], # chain2 initial guess
+            [-2, 4], # chain1 initial guess
+            [-7.5, 0], # chain2 initial guess
         ],
-        "T0_list": [10e3, 5e3, 1e3],     # initial temperatures
+        "T0_list": [100e3, 5e3, 1e3],     # initial temperatures
         "bounds": [(-10, 10), (-10, 10)],
         "max_iter": 2000,
         "swap_interval": 500,

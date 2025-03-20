@@ -4,7 +4,7 @@ import random
 from scipy.stats import qmc
 import matplotlib.pyplot as plt
 import seaborn as sns
-from doe.algorithms import parallel_tempering_sa, my_obj, my_is_feasible, my_nonlincon # Replace your_module
+from algorithms import parallel_tempering_sa, my_obj
 
 # 1. Define parameter ranges
 param_ranges = {

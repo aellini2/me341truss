@@ -144,3 +144,50 @@ def plot_4_subplots(logs, best_history, bounds):
 
     plt.tight_layout()
     plt.show()
+
+
+    if __name__ == "__main__":
+    # Problem bounds
+        my_bounds = [(0.01, 0.5), (0.01, 0.5)]
+
+        # We define multiple sets of chain initial conditions.
+        # For instance, 3 chains per run, but we vary the chain starts from run to run.
+        initial_radii = [
+            [0.2, 0.3],
+            [0.4, 0.05],
+            [0.05, 0.4]
+        ]
+
+
+        # Common T0_list for each run
+        T0_list = [1e6, 5e4, 2e4]
+
+        # We'll store the results from each run in a list
+        run_logs_list = []
+
+        for run_idx, x0_list in enumerate(initial_radii):
+            config = {
+                "x0_list": x0_list,
+                "T0_list": T0_list,
+                "bounds": my_bounds,
+                "max_iter": 10000,
+                "swap_interval": 200,
+                "adapt_interval": 100,
+                "step_size_init": 0.02,
+                "adapt_factor": 5,
+                "no_improve_limit": 1000,
+                "min_temp": 5e-3,
+                "cooling_rate": 0.92,
+                "seed": run_idx  # different seed per run
+            }
+            best_r, best_E, logs = plot_feasibility_and_path_2d(config)
+            run_logs_list.append((best_r, best_E, logs))
+            print(f"=== RUN {run_idx+1} ===")
+            print("Best r:", best_r)
+            print("Best E:", best_E)
+            print("Objective =", my_obj(best_r))
+            print("Feasible? =", my_is_feasible(best_r))
+            print("Constraints:", my_nonlincon(best_r), "\n")
+
+        # After all runs, do the big comparison plot
+        plot_4_subplots(my_bounds, run_logs_list)

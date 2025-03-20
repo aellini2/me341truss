@@ -653,19 +653,19 @@ if __name__ == "__main__":
     pt_config = {
         "x0_list": [
             [init_r1, init_r2],
-            [0.4, 0.05],
-            [0.05, 0.4]
+            [0.4, 0.15],
+            [0.5, 0.4]
         ],
-        "T0_list": [1e5, 5e4, 2e4],
+        "T0_list": [1e6, 10e4, 5e4],
         "bounds": my_bounds,
         "max_iter": 3000,
-        "swap_interval": 300,
+        "swap_interval": 150,
         "adapt_interval": 100,
         "step_size_init": 0.02,
         "adapt_factor": 1.2,
-        "no_improve_limit": 500,
+        "no_improve_limit": 1000,
         "min_temp": 1e-3,
-        "cooling_rate": 0.95,
+        "cooling_rate": 0.96,
         "seed": 0
     }
     pt_best_r, pt_best_E, pt_logs = parallel_tempering_sa(pt_config)
@@ -675,12 +675,11 @@ if __name__ == "__main__":
         "r0": [init_r1, init_r2],
         "T0": 1e5,
         "bounds": my_bounds,
-        "max_iter": 2000,
+        "max_iter": 20000,
         "min_temp": 1e-3,
-        "cooling_rate": 0.95,
+        "cooling_rate": 0.96,
         "step_size": 0.02,
-        "no_improve_limit": 500,
-        "seed": 0
+        "no_improve_limit": 1000,
     }
     sa_best_r, sa_best_E, sa_logs = single_chain_sa(sa_config)
 
